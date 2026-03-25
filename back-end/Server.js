@@ -14,9 +14,32 @@ const db = mysql.createConnection({
   password: "",
   database: "ecobazar-ecommerce",
 });
+
+
+//Deployment
+const path = require('path');
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API works!' });
+});
+
+
+app.use(express.static(path.join(__dirname, '../front-end/build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../front-end/build', 'index.html'));
+});
+
 app.listen(port, () => {
   console.log(`The Server is Running http://localhost:${port}`);
 });
+
+
 // image
 const multer = require("multer");
 const path = require("path");
