@@ -63,7 +63,7 @@ Ecobazar/
 │
 ├── .gitignore              # Git ignore rules
 └── README.md               # Main project README
-
+```
 ## 🛡️ Challenges & Solutions
 | Challenge | Solution |
 | :--- | :--- |
