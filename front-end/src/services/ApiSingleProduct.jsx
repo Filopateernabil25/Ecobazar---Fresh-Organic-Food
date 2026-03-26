@@ -12,7 +12,7 @@ export default function ApiSingleProduct({ children }) {
     }, []);
 
     function getProduct() {
-        fetch(`http://localhost:5000/Products/${id}`)
+        fetch(`http://localhost:5000/products/${id}`)
             .then(res => res.json())
             .then(data => setProduct(data))
             .catch(err => console.log("Error Select Data:", err));

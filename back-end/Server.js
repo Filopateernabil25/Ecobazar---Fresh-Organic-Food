@@ -14,32 +14,9 @@ const db = mysql.createConnection({
   password: "",
   database: "ecobazar-ecommerce",
 });
-
-
-//Deployment
-const path = require('path');
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'API works!' });
-});
-
-
-app.use(express.static(path.join(__dirname, '../front-end/build')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../front-end/build', 'index.html'));
-});
-
 app.listen(port, () => {
   console.log(`The Server is Running http://localhost:${port}`);
 });
-
-
 // image
 const multer = require("multer");
 const path = require("path");
@@ -55,6 +32,22 @@ const upload = multer({
     cb(null, allowed.includes(file.mimetype));
   },
 });
+
+// AuthController.js
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+exports.register = async (req, res) => {
+    const { name, email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    res.status(201).json({ message: "User created" });
+};
+
+exports.login = async (req, res) => {
+    const { email, password } = req.body;
+    const token = jwt.sign({ userId: user._id }, 'YOUR_SECRET_KEY', { expiresIn: '1h' });
+    res.json({ token, user: { name: user.name, email } });
+};
 
 // Get All Product
 app.get("/api/products", (req, res) => {

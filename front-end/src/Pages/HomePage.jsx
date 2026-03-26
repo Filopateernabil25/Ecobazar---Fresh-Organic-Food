@@ -137,9 +137,11 @@ export default function HomePage() {
 
           <div className="row row-row">
             {
-              products.slice(3, 7).map((product) => (
-                <Products key={product.id} product={product} />
-              ))
+              products.slice(3, 7).map((product) => {
+                return (
+                  <Products key={product.id} product={product} />
+                )
+              })
             }
           </div>
         </div >
